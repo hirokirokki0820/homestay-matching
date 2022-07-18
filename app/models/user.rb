@@ -14,13 +14,14 @@ class User < ApplicationRecord
                       length: { minimum: 6 },
                       allow_nil: true
 
+
 # 渡された文字列のハッシュ値を返す
 def User.digest(string)
   cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST : BCrypt::Engine.cost
   BCrypt::Password.create(string, cost: cost)
 end
 
-  private
+private
   # メールアドレスを全て小文字にする
   def downcase_email
     self.email = email.downcase

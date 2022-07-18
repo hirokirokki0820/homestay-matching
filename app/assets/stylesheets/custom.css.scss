@@ -1,0 +1,47 @@
+html,
+body {
+  height: 100%;
+}
+
+body {
+  padding-top: 50px;
+}
+
+// *:focus {
+//   box-shadow:none !important;
+//  }
+
+.navbar{
+  background-color: skyblue!important;
+}
+
+// ハンバーガーメニューのスタイリング
+.navbar-toggler{
+  border-color: rgba(0,0,0,0);
+  // background-color: skyblue;
+  // border-width: 2px;
+
+  // ハンバーガーメニューの周りに表示される枠線を消す
+  &:focus {
+    box-shadow:none !important;
+   }
+
+  // ハンバーガーメニューの３本線のスタイリング
+  .navbar-toggler-icon{
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,255,255,1)' stroke-width='3' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+  }
+}
+
+// ナビゲーションメニューのスタイリング
+.navbar-brand{
+  color:black;
+}
+
+.nav-item a {
+  color:gray!important;
+}
+
+#page-content {
+  flex: 1 0 auto;
+  background-color: #fffeee;
+}

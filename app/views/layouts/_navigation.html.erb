@@ -1,4 +1,4 @@
-<nav class="navbar bg-light fixed-top">
+<nav class="navbar bg-light shadow-sm fixed-top">
   <div class="container-fluid container">
     <a class="navbar-brand" href="#">Home Matching</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
@@ -6,16 +6,22 @@
     </button>
     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
       <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Sample</h5>
+        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">メニュー</h5>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
       <div class="offcanvas-body">
         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
+            <%= link_to "ホーム", root_path, class: "nav-link active" %>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
+            <%= link_to "新規アカウント作成", signup_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">ログイン</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">プロフィール</a>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="offcanvasNavbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">

@@ -1,0 +1,25 @@
+/* タブレット用カスタムCSS */
+@include media-breakpoint-down(md) {
+
+  //入力フォームの幅
+  #signup-form{
+    .form-column-width{
+      width: 80%;
+    }
+  }
+
+}
+
+
+
+/* スマホ用カスタムCSS */
+@include media-breakpoint-down(sm) {
+
+  //入力フォームの幅
+  #signup-form{
+    .form-column-width{
+      width: 80%;
+    }
+  }
+
+}

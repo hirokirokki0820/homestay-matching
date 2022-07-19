@@ -4,13 +4,19 @@ body {
 }
 
 body {
-  padding-top: 50px;
+  padding-top: 55px;
+}
+
+// placeholder の文字色
+.form-control::placeholder{
+  color: #cccccc;
 }
 
 // *:focus {
 //   box-shadow:none !important;
 //  }
 
+// ナビゲーションメニューバーのカラー
 .navbar{
   background-color: skyblue!important;
 }
@@ -44,4 +50,11 @@ body {
 #page-content {
   flex: 1 0 auto;
   background-color: #fffeee;
+}
+
+//入力フォームのスタイリング
+#signup-form{
+  .form-column-width{
+    width: 60%;
+  }
 }

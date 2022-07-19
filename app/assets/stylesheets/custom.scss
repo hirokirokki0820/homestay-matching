@@ -12,9 +12,9 @@ body {
   color: #cccccc;
 }
 
-// *:focus {
-//   box-shadow:none !important;
-//  }
+*:focus {
+  // box-shadow: none !important;
+ }
 
 // ナビゲーションメニューバーのカラー
 .navbar{
@@ -52,9 +52,7 @@ body {
   background-color: #fffeee;
 }
 
-//入力フォームのスタイリング
-#signup-form{
-  .form-column-width{
-    width: 60%;
-  }
+//入力フォームの幅
+.form-column-width{
+    width: 55%;
 }

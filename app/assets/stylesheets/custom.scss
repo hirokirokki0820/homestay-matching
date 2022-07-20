@@ -7,6 +7,7 @@ body {
   padding-top: 55px;
 }
 
+
 // placeholder の文字色
 .form-control::placeholder{
   color: #cccccc;
@@ -55,4 +56,21 @@ body {
 //入力フォームの幅
 .form-column-width{
     width: 55%;
+}
+
+// 入力フォーム補足用の文字スタイル
+.form-text{
+  font-size: .8em;
+}
+
+// エラー時のフォームのスタイリング
+.validation_errors {
+  input {
+    @extend .is-invalid;
+  }
+}
+
+// エラーメッセージのフォントサイズ
+.validation_font_size {
+  font-size: .8em;
 }

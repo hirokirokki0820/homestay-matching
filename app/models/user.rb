@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   before_create :set_id
+  before_save :downcase_email
 
   validates :name, presence: true, length: { maximum: 50 }
 

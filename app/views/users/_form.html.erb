@@ -1,10 +1,11 @@
 <div class="row justify-content-center">
-  <%= form_with(model: @user, local: true, class: "mt-4 form-column-width") do |f| %>
+  <%= form_with(model: @user, local: true, class: "mt-4 form-column-width needs-validation", html: {novalidate: false} ) do |f| %>
 
-    <div class="mb-3">
+    <div class="mb-3 <%= @user.errors.include?(:name) ? "validation_errors" : "" %>">
       <%= f.label :name, class: "form-label fw-bold"%>
       <span class="text-danger">*</span>
-      <%= f.text_field :name, placeholder: "ユーザー名を入力してください", class: "form-control"%>
+      <%= f.text_field :name, placeholder: "ユーザー名を入力してください", class: "form-control" %>
+      <%= render 'layouts/error_messages',class: "invalid-feedback", obj: @user, key: :name %>
     </div>
 
     <%= f.label :gender, class: "form-label fw-bold"%>
@@ -19,24 +20,27 @@
       </div>
     </div>
 
-    <div class="mb-3">
+    <div class="mb-3 <%= @user.errors.include?(:email) ? "validation_errors" : "" %>">
       <%= f.label :email, class: "form-label fw-bold"%>
       <span class="text-danger">*</span>
       <%= f.email_field :email, class: "form-control", placeholder: "Eメールアドレスを入力してください" %>
-      <div id="emailHelp" class="form-text">※アカウント認証確認メールを送信する為、必ず実際に使えるメールアドレスをご使用ください</div>
+      <div id="emailHelp" class="form-text text-primary">※アカウント認証確認メールを送信する為、必ず実際に使えるメールアドレスをご使用ください</div>
+      <%= render 'layouts/error_messages',class: "invalid-feedback", obj: @user, key: :email %>
     </div>
 
-    <div class="mb-3">
+    <div class="mb-3 <%= @user.errors.include?(:password) ? "validation_errors" : "" %>">
       <%= f.label :password, class: "form-label fw-bold"%>
       <span class="text-danger">*</span>
       <%= f.password_field :password, class: "form-control", placeholder: "パスワードを入力してください" %>
-      <div id="emailHelp" class="form-text">※6文字以上の英数字を入力してください</div>
+      <div id="emailHelp" class="form-text text-primary">※6文字以上の英数字を入力してください</div>
+      <%= render 'layouts/error_messages', obj: @user, key: :password %>
     </div>
 
-    <div class="mb-3">
+    <div class="mb-3 <%= @user.errors.include?(:password_confirmation) ? "validation_errors" : "" %>">
       <%= f.label :password_confirmation, class: "form-label fw-bold"%>
       <span class="text-danger">*</span>
-      <%= f.password_field :password, class: "form-control", placeholder: "パスワードをもう一度入力してください" %>
+      <%= f.password_field :password_confirmation, class: "form-control", placeholder: "パスワードをもう一度入力してください" %>
+      <%= render 'layouts/error_messages', obj: @user, key: :password_confirmation %>
     </div>
 
     <%= f.submit class: "btn btn-primary" %>

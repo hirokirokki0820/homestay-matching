@@ -1,0 +1,7 @@
+こんにちは、<%= @user.name %>さん。
+
+この度は Home Matching にご登録いただきありがとうございます。
+つきましては、下記リンクをクリックしてアカウントを有効化してください。
+リンクの有効期限はメールが届いてから24時間以内です。
+
+<%= edit_account_activation_url(@user.activation_token, email: @user.email) %>

@@ -1,0 +1,13 @@
+<h1>Home Matching</h1>
+<p>こんにちは、<%= @user.name %>さん。</p>
+<p>
+この度は Home Matching にご登録いただきありがとうございます。
+</p>
+<p>
+つきましては、下記リンクをクリックしてアカウントを有効化してください。
+</p>
+<p>
+リンクの有効期限はメールが届いてから24時間以内です。
+</p>
+
+<%= link_to "アカウントを有効化する", edit_account_activation_url(@user.activation_token, email: @user.email) %>

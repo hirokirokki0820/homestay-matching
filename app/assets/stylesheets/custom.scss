@@ -22,6 +22,15 @@ body {
   background-color: skyblue!important;
 }
 
+// ナビゲーションスライドメニュー(navbar-nav)のカラー
+.navbar-nav{
+  .nav-btn{
+    &:hover { background-color: #eeeeee;
+    }
+  }
+}
+
+
 // ハンバーガーメニューのスタイリング
 .navbar-toggler{
   border-color: rgba(0,0,0,0);
@@ -58,6 +67,16 @@ body {
     width: 55%;
 }
 
+// 入力フォームのスタイリング（アイコン入り）
+.input-group{
+  .input-group-text{
+    border-right: none !important;
+    background-color: rgba(255,255,255,255);
+    width: 8%;
+  }
+
+}
+
 // 入力フォーム補足用の文字スタイル
 .form-text{
   font-size: .8em;
@@ -69,6 +88,10 @@ body {
     @extend .is-invalid;
   }
 }
+
+// .field_with_errors {
+//   display: contents;
+// }
 
 // エラーメッセージのフォントサイズ
 .validation_font_size {

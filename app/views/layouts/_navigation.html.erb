@@ -1,6 +1,6 @@
 <nav class="navbar bg-light shadow-sm fixed-top">
   <div class="container-fluid container">
-    <a class="navbar-brand" href="#">Home Matching</a>
+    <%= link_to "Home Matching", root_path, class: "navbar-brand active" %>
     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -11,18 +11,25 @@
       </div>
       <div class="offcanvas-body">
         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-          <li class="nav-item">
+          <li class="nav-item nav-btn">
             <%= link_to "ホーム", root_path, class: "nav-link active" %>
           </li>
-          <li class="nav-item">
-            <%= link_to "新規アカウント作成", signup_path, class: "nav-link" %>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">ログイン</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">プロフィール</a>
-          </li>
+          <% if logged_in? %>
+            <li class="nav-item nav-btn">
+              <%= link_to "プロフィール詳細", user_path(current_user), class: "nav-link" %>
+            </li>
+            <li class="nav-item nav-btn">
+              <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">ログアウト</a>
+              <%#= link_to "ログアウト", logout_path, class: "nav-link", data: { turbo_method: :delete, bs_toggle: "modal", bs_target: "#exampleModal"} %>
+            </li>
+          <% else %>
+            <li class="nav-item nav-btn">
+              <%= link_to "新規アカウント作成", signup_path, class: "nav-link" %>
+            </li>
+            <li class="nav-item nav-btn">
+              <%= link_to "ログイン", login_path, class: "nav-link" %>
+            </li>
+          <% end %>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="offcanvasNavbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Dropdown
@@ -45,3 +52,22 @@
     </div>
   </div>
 </nav>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">確認</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        本当にログアウトしますか？
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
+        <%= button_to "ログアウト", logout_path, class: "btn btn-primary", method: :delete %>
+      </div>
+    </div>
+  </div>
+</div>

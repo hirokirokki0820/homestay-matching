@@ -1,5 +1,5 @@
 <div class="row justify-content-center">
-  <%= form_with(scope: :session, url: login_path, local: true, class: "mt-4 form-column-width", html: {novalidate: false}) do |f| %>
+  <%= form_with(scope: :session, model: @user, url: login_path, local: true, class: "mt-4 form-column-width", html: {novalidate: false}) do |f| %>
 
     <div class="mb-3">
       <%= f.label :email, class: "form-label fw-bold"%>

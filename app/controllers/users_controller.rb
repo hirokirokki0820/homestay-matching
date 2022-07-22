@@ -8,6 +8,7 @@ class UsersController < ApplicationController
   end
 
   def show
+    # @user = User.find_by(id: session[:user_id])
   end
 
   def new
@@ -29,11 +30,21 @@ class UsersController < ApplicationController
   end
 
   def update
-
+    if params[:user][:password].blank?
+      @user.errors.add(:password, :blank)
+      render "edit", status: :unprocessable_entity
+    elsif @user.update(user_params)
+      flash[:notice] = "パスワードが変更されました"
+      redirect_to @user
+    else
+      render "edit", status: :unprocessable_entity
+    end
   end
 
   def destroy
-
+    @user.destroy
+    flash[:notice] = "アカウントを削除しました"
+    redirect_to root_path, status: :see_other
   end
 
 

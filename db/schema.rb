@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_21_143531) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_22_032736) do
   create_table "users", id: :string, force: :cascade do |t|
     t.string "name"
     t.string "email"
@@ -23,6 +23,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_21_143531) do
     t.boolean "activated"
     t.datetime "activated_at"
     t.datetime "activation_sent_at"
+    t.string "reset_digest"
+    t.datetime "reset_sent_at"
   end
 
 end

@@ -16,7 +16,10 @@
           </li>
           <% if logged_in? %>
             <li class="nav-item nav-btn">
-              <%= link_to "プロフィール詳細", user_path(current_user), class: "nav-link" %>
+              <%= link_to "プロフィール", user_path(current_user), class: "nav-link" %>
+            </li>
+            <li class="nav-item nav-btn">
+              <%= link_to "アカウント設定", edit_user_path(current_user), class: "nav-link" %>
             </li>
             <li class="nav-item nav-btn">
               <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">ログアウト</a>
@@ -32,7 +35,7 @@
           <% end %>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="offcanvasNavbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Dropdown
+              アカウント設定
             </a>
             <ul class="dropdown-menu" aria-labelledby="offcanvasNavbarDropdown">
               <li><a class="dropdown-item" href="#">Action</a></li>
@@ -40,7 +43,7 @@
               <li>
                 <hr class="dropdown-divider">
               </li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
+              <li><a class="dropdown-item" href="#">アカウントを削除</a></li>
             </ul>
           </li>
         </ul>

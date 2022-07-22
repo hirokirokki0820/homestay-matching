@@ -1,6 +1,7 @@
 <div class="row justify-content-center">
   <%= form_with(model: @user, local: true, class: "mt-4 form-column-width", html: {novalidate: false}) do |f| %>
 
+  <% if @user.new_record? %>
     <div class="mb-3 <%= @user.errors.include?(:name) ? "validation_errors" : "" %>">
       <%= f.label :name, class: "form-label fw-bold"%>
       <span class="text-danger">*</span>
@@ -24,6 +25,7 @@
         <%= f.label "女性", class: "form-check-label"%>
       </div>
     </div>
+  <% end %>
 
     <div class="mb-3 <%= @user.errors.include?(:email) ? "validation_errors" : "" %>">
       <%= f.label :email, class: "form-label fw-bold"%>

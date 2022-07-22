@@ -1,0 +1,18 @@
+<h1 class="text-center">パスワードの再設定</h1>
+<div class="row justify-content-center">
+  <%= form_with(scope: :password_reset, url: password_resets_path, local: true, class: "mt-4 form-column-width") do |f| %>
+
+    <div class="mb-3">
+      <%= f.label "登録しているメールアドレスを入力してください", class: "form-label font09 fw-bold"%>
+      <div class="input-group shadow-sm rounded mt-1">
+        <span class="input-group-text" id="basic-addon1">
+          <i class="bi bi-envelope"></i>
+        </span>
+        <%= f.email_field :email, class: "form-control mb", placeholder: "Eメールアドレス" %>
+      </div>
+    </div>
+
+    <%= f.submit "再設定用リンクを送信する", class: "btn btn-primary" %>
+
+  <% end %>
+</div>

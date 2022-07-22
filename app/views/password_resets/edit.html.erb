@@ -1,0 +1,31 @@
+<h1 class="text-center">パスワードの再設定</h1>
+<div class="row justify-content-center">
+  <%= form_with(model: @user, url: password_reset_path(params[:id]), local: true, class: "mt-4 form-column-width") do |f| %>
+
+    <%= hidden_field_tag :email, @user.email %>
+
+    <div class="mb-3 <%= @user.errors.include?(:password) ? "validation_errors" : "" %>">
+      <%= f.label :password, class: "form-label fw-bold"%>
+      <div class="input-group shadow-sm rounded">
+        <span class="input-group-text" id="basic-addon1">
+          <i class="bi bi-key-fill"></i>
+        </span>
+        <%= f.password_field :password, class: "form-control", placeholder: "パスワードを入力してください" %>
+      </div>
+      <%= render 'layouts/error_messages', obj: @user, key: :password %>
+    </div>
+
+    <div class="mb-3 <%= @user.errors.include?(:password_confirmation) ? "validation_errors" : "" %>">
+      <%= f.label :password_confirmation, class: "form-label fw-bold"%>
+      <div class="input-group shadow-sm rounded">
+        <span class="input-group-text" id="basic-addon1">
+          <i class="bi bi-key-fill"></i>
+        </span>
+        <%= f.password_field :password_confirmation, class: "form-control", placeholder: "パスワードをもう一度入力してください" %>
+      </div>
+      <%= render 'layouts/error_messages', obj: @user, key: :password_confirmation %>
+    </div>
+
+    <%= f.submit "更新する", class: "btn btn-primary float-start mt-2" %>
+  <% end %>
+</div>

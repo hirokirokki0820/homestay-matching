@@ -22,7 +22,7 @@ class UsersController < ApplicationController
     if @user.save
       @user.send_activation_email
       flash[:notice] = "アカウント認証メールを送信しました。メールが届きましたら、24時間以内に本文記載の有効化リンクをクリックしてアカウントを認証してください。"
-      redirect_to @user
+      redirect_to root_url
     else
       render "new", status: :unprocessable_entity
     end

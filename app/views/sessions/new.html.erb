@@ -1,5 +1,6 @@
+<h1 class="text-center">ログイン</h1>
 <div class="row justify-content-center">
-  <%= form_with(scope: :session, model: @user, url: login_path, local: true, class: "mt-4 form-column-width", html: {novalidate: false}) do |f| %>
+  <%= form_with(scope: :session, model: @user, url: login_path, local: true, class: "mt-4 form-column-width") do |f| %>
 
     <div class="mb-3">
       <%= f.label "メールアドレス", class: "form-label fw-bold"%>
@@ -21,12 +22,15 @@
       </div>
     </div>
 
-    <div class="form-check mb-3">
+    <div class="form-check mb-2">
       <%= f.check_box :remember_me, class: "form-check-input", id: "flexCheckDefault" %>
       <%= f.label "ログイン状態を保持する", class: "form-check-label" %>
     </div>
 
-    <%= f.submit "ログイン", class: "btn btn-primary" %>
-
+      <%= f.submit "ログイン", class: "btn btn-primary float-start mt-2" %>
+      <div class="float-end">
+        <%= link_to ">>パスワードをお忘れですか？", new_password_reset_path, class: "font09" %><br>
+        <%= link_to ">>初めてご利用の方(新規登録)", signup_path, class: "font09" %>
+      </div><br><br>
   <% end %>
 </div>

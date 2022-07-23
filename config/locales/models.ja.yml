@@ -6,6 +6,7 @@ ja:
       user:
         id: ID
         name: ユーザー名
+        account_name: アカウント名
         gender: 性別
         email: メールアドレス
         password: パスワード

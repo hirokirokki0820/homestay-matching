@@ -1,6 +1,6 @@
 <h1 class="text-center">アカウント設定</h1>
 <div class="row justify-content-center">
-  <%= form_with(scope: :account, model: @user, url: account_path(params[:id]), local: true, class: "mt-4 form-column-width") do |f| %>
+  <%= form_with(scope: :account, model: @user, url: account_path(params[:account_name]), local: true, class: "mt-4 form-column-width") do |f| %>
 
     <%#----- メールアドレス ------%>
     <div class="mb-3 <%= @user.errors.include?(:email) ? "validation_errors" : "" %>">
@@ -14,10 +14,22 @@
       <%= render 'layouts/error_messages',class: "invalid-feedback", obj: @user, key: :email %>
     </div>
 
+    <%#----- アカウント名 ------%>
+    <div class="mb-3 <%= @user.errors.include?(:account_name) ? "validation_errors" : "" %>">
+      <%= f.label "アカウント名変更", class: "form-label fw-bold"%>
+      <div class="input-group shadow-sm rounded">
+        <span class="input-group-text" id="basic-addon1">
+          <i class="bi bi-at"></i>
+        </span>
+        <%= f.text_field :account_name, class: "form-control", placeholder: "アカウント名を入力してください" %>
+      </div>
+      <div id="emailHelp" class="form-text text-primary">※3文字以上のユニークなアカウント名(半角英数字)を入力してください</div>
+      <%= render 'layouts/error_messages', obj: @user, key: :account_name %>
+    </div>
+
     <%#----- パスワード ------%>
     <div class="mb-3 <%= @user.errors.include?(:password) ? "validation_errors" : "" %>">
       <%= f.label (@user.new_record? ? :password : "パスワード変更"), class: "form-label fw-bold"%>
-      <span class="text-danger">*</span>
       <div class="input-group shadow-sm rounded">
         <span class="input-group-text" id="basic-addon1">
           <i class="bi bi-key-fill"></i>
@@ -31,7 +43,6 @@
     <%#----- パスワード(確認用) ------%>
     <div class="mb-3 <%= @user.errors.include?(:password_confirmation) ? "validation_errors" : "" %>">
       <%= f.label :password_confirmation, class: "form-label fw-bold"%>
-      <span class="text-danger">*</span>
       <div class="input-group shadow-sm rounded">
         <span class="input-group-text" id="basic-addon1">
           <i class="bi bi-key-fill"></i>
@@ -66,7 +77,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
-        <%= button_to "OK", account_path(@user), class: "btn btn-danger", method: :delete %>
+        <%= button_to "削除", account_path(@user), class: "btn btn-danger", method: :delete %>
       </div>
     </div>
   </div>

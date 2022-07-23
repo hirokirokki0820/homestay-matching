@@ -1,5 +1,5 @@
 <div class="row justify-content-center">
-  <%= form_with(model: @user, local: true, class: "mt-4 form-column-width", html: {novalidate: false}) do |f| %>
+  <%= form_with(model: @user, local: true, class: "mt-4 form-column-width") do |f| %>
 
     <% if @user.new_record? %>
       <%#----- ユーザー名 ------%>

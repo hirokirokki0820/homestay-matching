@@ -1,7 +1,6 @@
 class User < ApplicationRecord
   attr_accessor :remember_token, :remember_me, :activation_token, :reset_token
-  before_create :set_id
-  before_create :create_activation_digest
+  before_create :set_id, :set_account_name, :create_activation_digest
   before_save :downcase_email
 
   validates :name, presence: true, length: { maximum: 50 }
@@ -17,6 +16,11 @@ class User < ApplicationRecord
                       length: { minimum: 6 },
                       allow_nil: true
 
+  VALID_ACCOUNT_NAME_REGEX = /\A[a-zA-Z0-9]+\z/
+  validates :account_name, presence: true,
+                        uniqueness: true,
+                        length: { minimum:3, maximum: 50 },
+                        format: { with: VALID_ACCOUNT_NAME_REGEX }, on: :update
 
   # 渡された文字列のハッシュ値を返す
   def User.digest(string)
@@ -78,6 +82,9 @@ class User < ApplicationRecord
     reset_sent_at < 1.hour.ago
   end
 
+  def to_param
+    account_name
+  end
 
 private
   # メールアドレスを全て小文字にする
@@ -89,6 +96,13 @@ private
   def set_id
     while self.id.blank? || User.find_by(id: self.id).present? do
       self.id = SecureRandom.base58
+    end
+  end
+
+  # ランダムなアカウント名を返す
+  def set_account_name
+    while self.account_name.blank? || User.find_by(account_name: self.account_name).present? do
+      self.account_name = SecureRandom.base36
     end
   end
 

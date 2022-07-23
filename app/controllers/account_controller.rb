@@ -7,11 +7,11 @@ class AccountController < ApplicationController
   end
 
   def update
-    if params[:account][:password].blank?
-      @user.errors.add(:password, :blank)
+    if params[:account][:account_name].blank?
+      @user.errors.add(:account_name, :blank)
       render "edit", status: :unprocessable_entity
     elsif @user.update(user_params)
-      flash[:notice] = "パスワードが変更されました"
+      flash[:notice] = "アカウント情報が更新されました"
       redirect_to @user
     else
       render "edit", status: :unprocessable_entity
@@ -27,11 +27,11 @@ class AccountController < ApplicationController
   private
 
     def set_user
-      @user = User.find(params[:id])
+      @user = User.find_by(account_name: params[:account_name])
     end
 
     def user_params
-      params.require(:account).permit(:password, :password_confirmation)
+      params.require(:account).permit(:account_name, :password, :password_confirmation)
     end
 
     def require_same_user

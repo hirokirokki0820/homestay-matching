@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: %i[ show edit update destroy ]
+  before_action :set_user, only: %i[ show edit update ]
   before_action :require_user, only: [:edit, :update]
-  before_action :require_same_user, only: [:edit, :update, :destroy]
+  before_action :require_same_user, only: [:edit, :update]
 
   def index
     @users = User.all.order(created_at: :desc)
@@ -30,21 +30,18 @@ class UsersController < ApplicationController
   end
 
   def update
-    if params[:user][:password].blank?
-      @user.errors.add(:password, :blank)
-      render "edit", status: :unprocessable_entity
-    elsif @user.update(user_params)
-      flash[:notice] = "パスワードが変更されました"
-      redirect_to @user
-    else
-      render "edit", status: :unprocessable_entity
-    end
+    # if params[:user][:password].blank?
+    #   @user.errors.add(:password, :blank)
+    #   render "edit", status: :unprocessable_entity
+    # elsif @user.update(user_params)
+    #   flash[:notice] = "パスワードが変更されました"
+    #   redirect_to @user
+    # else
+    #   render "edit", status: :unprocessable_entity
+    # end
   end
 
   def destroy
-    @user.destroy
-    flash[:notice] = "アカウントを削除しました"
-    redirect_to root_path, status: :see_other
   end
 
 

@@ -5,6 +5,7 @@ ja:
     attributes:
       user:
         id: ID
+        account_type: アカウントタイプ
         name: 表示名
         content: 自己紹介
         account_name: アカウント名

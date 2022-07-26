@@ -3,17 +3,20 @@
 
     <% if @user.new_record? %>
     <%#----- アカウントタイプ ------%>
-      <div class="btn-group mb-3" role="group" aria-label="Basic radio toggle button group">
-        <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
-        <label class="btn btn-outline-primary" for="btnradio1">一般ユーザー</label>
+      <%= f.label :account_type, class: "form-label fw-bold"%>
+      <span class="text-danger">*</span><br>
+      <div class="btn-group <%= @user.errors.include?(:account_type) ? "validation_errors" : "" %>" role="group" aria-label="Basic radio toggle button group">
+        <%= f.radio_button :account_type, "nomal" ,class: "btn-check", id: "btnradio1"%>
+        <%= f.label "一般ユーザー", class: "btn btn-outline-primary", for: "btnradio1"%>
 
-        <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
-        <label class="btn btn-outline-primary" for="btnradio3">ホストファミリー</label>
+        <%= f.radio_button :account_type, "host" ,class: "btn-check", id: "btnradio3"%>
+        <%= f.label "ホストファミリー", class: "btn btn-outline-primary", for: "btnradio3" %>
       </div>
+      <%= render 'layouts/error_messages',class: "invalid-feedback", obj: @user, key: :account_type %>
     <% end %>
 
     <%#----- ユーザー名 ------%>
-    <div class="mb-3 <%= @user.errors.include?(:name) ? "validation_errors" : "" %>">
+    <div class="mt-3 mb-3 <%= @user.errors.include?(:name) ? "validation_errors" : "" %>">
       <%= f.label :name, class: "form-label fw-bold"%>
       <span class="text-danger">*</span>
       <div class="input-group shadow-sm rounded">

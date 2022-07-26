@@ -3,6 +3,8 @@ class User < ApplicationRecord
   before_create :set_id, :set_account_name, :create_activation_digest
   before_save :downcase_email
 
+  validates :account_type, presence: true, on: :create
+
   validates :name, presence: true, length: { maximum: 50 }
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i

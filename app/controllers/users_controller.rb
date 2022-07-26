@@ -20,6 +20,9 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
+    # if params[:user][:account_type].blank?
+    #   @user.errors.add(:account_type, :blank)
+    #   render "new", status: :unprocessable_entity
     if @user.save
       @user.send_activation_email
       flash[:notice] = "アカウント認証メールを送信しました。メールが届きましたら、24時間以内に本文記載の有効化リンクをクリックしてアカウントを認証してください。"
@@ -52,8 +55,7 @@ class UsersController < ApplicationController
     end
 
     def user_params
-      # params.require(:user).permit(:name, :gender, :email, :password, :password_confirmation)
-      params.require(:user).permit(:name, :gender, :content)
+      params.require(:user).permit(:account_type, :name, :gender, :email, :content, :password, :password_confirmation)
     end
 
     def require_same_user

@@ -33,12 +33,12 @@ class UsersController < ApplicationController
     # if params[:user][:password].blank?
     #   @user.errors.add(:password, :blank)
     #   render "edit", status: :unprocessable_entity
-    # elsif @user.update(user_params)
-    #   flash[:notice] = "パスワードが変更されました"
-    #   redirect_to @user
-    # else
-    #   render "edit", status: :unprocessable_entity
-    # end
+    if @user.update(user_params)
+      flash[:notice] = "プロフィールが変更されました"
+      redirect_to @user
+    else
+      render "edit", status: :unprocessable_entity
+    end
   end
 
   def destroy
@@ -52,7 +52,8 @@ class UsersController < ApplicationController
     end
 
     def user_params
-      params.require(:user).permit(:name, :gender, :email, :password, :password_confirmation)
+      # params.require(:user).permit(:name, :gender, :email, :password, :password_confirmation)
+      params.require(:user).permit(:name, :gender, :content)
     end
 
     def require_same_user

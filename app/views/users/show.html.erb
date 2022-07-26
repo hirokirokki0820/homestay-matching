@@ -1,16 +1,20 @@
 <h1 class="text-center">プロフィール</h1>
 
 <%= gravatar_for @user, size: 200 %>
-<div class="text-center mt-2">
+<div class="text-center mt-2 mb-3">
   <%= link_to "Gravatarでプロフィール画像を変更できます。", "https://ja.gravatar.com/", target: :_blank, rel: "noopener noreferrer" %>
   <br>
   >>
-  <%= link_to "詳しい設定方法はこちら", "https://kobacchi.com/gravatar-profile-image-setting/", target: :_blank, rel: "noopener noreferrer" %>
+  <%= link_to "詳しい設定方法はこちら", "https://kobacchi.com/gravatar-profile-image-setting/", target: :_blank, rel: "noopener noreferrer"%>
+</div>
+
+<div class="text-center mb-3">
+  <%= link_to "プロフィールを編集する", edit_user_path(@user), class: "btn btn-secondary" %>
 </div>
 
 <div class="row mt-4 justify-content-center">
   <div class="form-column-width">
-    <label for="exampleFormControlInput1" class="form-label fw-bold">ユーザー名</label>
+    <label for="exampleFormControlInput1" class="form-label fw-bold">ユーザー名(表示名)</label>
     <div class="mb-3">
       <%= @user.name %>
     </div>
@@ -22,7 +26,7 @@
 
     <label for="exampleFormControlInput1" class="form-label fw-bold">自己紹介</label>
     <div class="mb-3">
-      <%#= @user.content %>
+      <%= simple_format(@user.content) %>
     </div>
   </div>
 </div>

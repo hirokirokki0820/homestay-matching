@@ -174,6 +174,7 @@ GEM
     reline (0.3.1)
       io-console (~> 0.5)
     rexml (3.2.5)
+    rinku (2.0.6)
     rubyzip (2.3.2)
     selenium-webdriver (4.3.0)
       childprocess (>= 0.5, < 5.0)
@@ -230,6 +231,7 @@ DEPENDENCIES
   jsbundling-rails
   puma (~> 5.0)
   rails (~> 7.0.3)
+  rinku
   selenium-webdriver
   sprockets-rails
   sqlite3 (~> 1.4)

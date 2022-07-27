@@ -3,7 +3,7 @@ class Post < ApplicationRecord
   before_create :set_post_id
 
   validates :title, presence: true, length: { minimum: 3, maximum: 100 }
-  validates :content, presence: true, length: { maximum: 1000 }
+  validates :content, presence: true, length: { maximum: 2000 }
 end
 
 

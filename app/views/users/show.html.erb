@@ -26,7 +26,8 @@
 
     <label for="exampleFormControlInput1" class="form-label fw-bold">自己紹介</label>
     <div class="mb-3">
-      <%= simple_format(@user.content) %>
+      <%= raw Rinku.auto_link(simple_format(@user.content), :urls, 'target="_blank" rel="noopener noreferrer"') %>
+      <%#= raw Rinku.auto_link(simple_format(@user.content) %>
     </div>
   </div>
 </div>

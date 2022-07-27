@@ -1,0 +1,47 @@
+<div class="row justify-content-center">
+  <%= form_with(model: @post, local: true, class: "mt-4 form-column-width") do |f| %>
+
+    <%#----- ユーザー名 ------%>
+    <div class="mt-3 mb-3 <%= @post.errors.include?(:title) ? "validation_errors" : "" %>">
+      <%= f.label :title, class: "form-label fw-bold"%>
+      <span class="text-danger">*</span>
+      <div class="input-group shadow-sm rounded">
+        <span class="input-group-text" id="basic-addon1">
+          <i class="bi bi-person-circle"></i>
+        </span>
+        <%= f.text_field :title, placeholder: "タイトルを入力してください", class: "form-control" %>
+      </div>
+      <%= render 'layouts/error_messages',class: "invalid-feedback", obj: @post, key: :title %>
+    </div>
+
+    <%#----- 本文 ------%>
+    <div class="mb-3 <%= @post.errors.include?(:content) ? "validation_errors" : "" %>">
+      <%= f.label :content, class: "form-label fw-bold"%>
+      <div class="input-group shadow-sm rounded">
+        <span class="input-group-text" id="basic-addon1">
+          <i class="bi bi-card-text"></i>
+        </span>
+        <%= f.text_area :content, placeholder: "本文を入力してください", class: "form-control", rows: 15 %>
+      </div>
+      <%= render 'layouts/error_messages',class: "invalid-feedback", obj: @post, key: :content %>
+    </div>
+
+    <%#----- 住所 ------%>
+    <div class="mt-3 mb-3 <%= @post.errors.include?(:address) ? "validation_errors" : "" %>">
+      <%= f.label :address, class: "form-label fw-bold"%>
+      <span class="text-danger">*</span>
+      <div class="input-group shadow-sm rounded">
+        <span class="input-group-text" id="basic-addon1">
+          <i class="bi bi-geo-alt-fill"></i>
+        </span>
+        <%= f.text_field :address, placeholder: "住所を入力してください", class: "form-control" %>
+      </div>
+      <div id="addressHelp" class="form-text text-primary">※住所を入力すると自動で地図(Google Maps)が表示されるようになります</div>
+      <%= render 'layouts/error_messages',class: "invalid-feedback", obj: @post, key: :address %>
+    </div>
+
+    <%#----- 送信(更新)ボタン ------%>
+    <%= f.submit (@post.new_record? ? "投稿する" : "更新する"), class: "btn btn-primary mb-4" %>
+
+  <% end %>
+</div>

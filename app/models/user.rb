@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   attr_accessor :remember_token, :remember_me, :activation_token, :reset_token
+  has_many :posts, dependent: :destroy
   before_create :set_id, :set_account_name, :create_activation_digest
   before_save :downcase_email
 

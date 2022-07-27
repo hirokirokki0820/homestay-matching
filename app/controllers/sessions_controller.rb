@@ -5,7 +5,7 @@ class SessionsController < ApplicationController
 
   def create
     @user = User.find_by(email: session_params[:email].downcase)
-    if @user && @user.authenticate(session_params[:password])
+    if @user && @user.authenticate(session_params[:password]) && (@user.account_type == session_params[:account_type])
       if @user.activated?
         log_in(@user)
         session_params[:remember_me] == "1" ? remember(@user) : forget(@user)
@@ -17,6 +17,10 @@ class SessionsController < ApplicationController
         flash[:error] = message
         redirect_to root_url
       end
+    elsif @user && @user.authenticate(session_params[:password])
+      @user = User.new(session_params)
+      flash.now[:error] = "アカウントタイプに誤りがあります"
+      render "new", status: :unprocessable_entity
     else
       @user = User.new(session_params)
       flash.now[:error] = "メールアドレスまたはパスワードに誤りがあります"
@@ -31,7 +35,7 @@ class SessionsController < ApplicationController
 
   private
     def session_params
-      params.require(:session).permit(:email, :password, :remember_me)
+      params.require(:session).permit(:account_type, :email, :password, :remember_me)
     end
 
 end

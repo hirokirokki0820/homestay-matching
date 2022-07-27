@@ -3,6 +3,18 @@
   <%= form_with(scope: :session, model: @user, url: login_path, local: true, class: "mt-4 form-column-width") do |f| %>
 
     <div class="mb-3">
+      <%= f.label "アカウントタイプ", class: "form-label fw-bold"%>
+      <span class="text-danger">*</span><br>
+      <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+        <%= f.radio_button :account_type, "nomal" ,class: "btn-check", id: "btnradio1"%>
+        <%= f.label "一般ユーザー", class: "btn btn-outline-primary", for: "btnradio1"%>
+
+        <%= f.radio_button :account_type, "host" ,class: "btn-check", id: "btnradio3"%>
+        <%= f.label "ホストファミリー", class: "btn btn-outline-primary", for: "btnradio3" %>
+      </div>
+    </div>
+
+    <div class="mb-3">
       <%= f.label "メールアドレス", class: "form-label fw-bold"%>
       <div class="input-group shadow-sm rounded">
         <span class="input-group-text" id="basic-addon1">

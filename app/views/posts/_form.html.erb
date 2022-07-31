@@ -39,6 +39,12 @@
       <%= render 'layouts/error_messages',class: "invalid-feedback", obj: @post, key: :address %>
     </div>
 
+    <div class="mt-3 mb-5">
+      <%#----- 画像の添付 ------%>
+      <%= f.label :images, '画像(5MBまで、最大アップロード枚数5枚)', class: "form-label fw-bold" %><br>
+      <%= f.file_field :images, multiple: true %>
+    </div>
+
     <%#----- 送信(更新)ボタン ------%>
     <%= f.submit (@post.new_record? ? "投稿する" : "更新する"), class: "btn btn-primary mb-4", data: { turbo: false } %>
 

@@ -1,4 +1,5 @@
 class Post < ApplicationRecord
+  has_many_attached :images
   belongs_to :user
   before_create :set_post_id
   geocoded_by :address

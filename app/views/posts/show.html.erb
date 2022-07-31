@@ -14,22 +14,24 @@
         </header>
 
         <!-- 投稿写真(Carousel) -->
-<!--        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+            <!-- 画像表示エリア -->
+
+        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
           <div class="carousel-indicators">
-            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            <% if @post.images.attached? %>
+              <% @post.images.count.times do |value| %>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="<%= value %>" class="<%= value == 0 ? "active" : "" %>" aria-current="<%= value == 0 ? "true" : "" %>" aria-label="Slide <%= value %>"></button>
+              <% end %>
+            <% end %>
           </div>
-          <div class="carousel-inner">
-            <div class="carousel-item active">
-              <img src="https://dummyimage.com/600x400/555/ffffff" class="d-block w-100" alt="...">
-            </div>
-            <div class="carousel-item">
-              <img src="https://dummyimage.com/600x400/888/ffffff" class="d-block w-100" alt="...">
-            </div>
-            <div class="carousel-item">
-              <img src="https://dummyimage.com/600x400/aaa/ffffff" class="d-block w-100" alt="...">
-            </div>
+          <div class="carousel-inner bg-black">
+            <% if @post.images.attached? %>
+              <% @post.images.each_with_index do |image, index| %>
+                <div class="carousel-item <%= index == 0 ? "active" : "" %>">
+                  <%= image_tag image, class: "d-block mx-auto", alt: "...", height: 400 %>
+                </div>
+              <% end %>
+            <% end %>
           </div>
           <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -40,7 +42,7 @@
             <span class="visually-hidden">Next</span>
           </button>
         </div>
-        -->
+
         <!-- 投稿本文 -->
         <section class="my-3">
           <%= raw Rinku.auto_link(simple_format(@post.content, class: "fs-6 mb-4"), :urls, 'target="_blank" rel="noopener noreferrer"') %>
@@ -98,7 +100,9 @@
   }
   // )
   </script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAP_API_KEY'] %>&callback=initMap&sensor=false" async defer></script>
+  <% if !(@post.address.blank?) %>
+    <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAP_API_KEY'] %>&callback=initMap" async defer></script>
+  <% end %>
 
   <!-- 投稿削除のモーダル表示 -->
   <div class="modal fade" id="postDeleteModal" tabindex="-1" aria-labelledby="postDeleteModalLabel" aria-hidden="true">
@@ -113,7 +117,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
-          <%= button_to "削除", post_path(@post), class: "btn btn-danger", method: :delete %>
+          <%= button_to "削除", post_path(@post), class: "btn btn-danger", method: :delete, data: { turbo: false } %>
         </div>
       </div>
     </div>

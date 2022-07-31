@@ -20,6 +20,7 @@ class PostsController < ApplicationController
   def create
     @post = Post.new(post_params)
     @post.user = current_user
+    set_images
     if @post.save
       flash[:notice] = "新規投稿が完了しました"
       redirect_to @post
@@ -29,6 +30,7 @@ class PostsController < ApplicationController
   end
 
   def update
+    set_images
     if @post.update(post_params)
       flash[:notice] = "投稿を更新しました"
       redirect_to @post
@@ -49,7 +51,11 @@ class PostsController < ApplicationController
     end
 
     def post_params
-      params.require(:post).permit(:title, :content, :address)
+      params.require(:post).permit(:title, :content, :address, image: [])
+    end
+
+    def set_images
+      @post.images.attach(params[:post][:images])
     end
 
     def require_same_user

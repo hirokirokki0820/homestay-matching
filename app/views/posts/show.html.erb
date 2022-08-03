@@ -1,24 +1,26 @@
+ <!-- 投稿ヘッダー -->
+<header class="mb-4">
+  <!-- Post title-->
+  <h1 class="fw-bolder mb-1"><%= @post.title %></h1>
+  <!-- Post meta content-->
+  <div class="text-muted fst-italic mb-2">投稿日：<%= l @post.created_at %> / 更新日：<%= l @post.updated_at %></div>
+  <!-- Post categories-->
+  <a class="badge bg-secondary text-decoration-none link-light" href="#!">Web Design</a>
+  <a class="badge bg-secondary text-decoration-none link-light" href="#!">Freebies</a>
+</header>
+
+<!-- コンテンツ -->
 <div class="row">
   <div class="col-lg-8">
     <!-- 投稿内容 -->
     <article>
-        <!-- 投稿ヘッダー -->
-        <header class="mb-4">
-            <!-- Post title-->
-            <h1 class="fw-bolder mb-1"><%= @post.title %></h1>
-            <!-- Post meta content-->
-            <div class="text-muted fst-italic mb-2">投稿日：<%= l @post.created_at %> / 更新日：<%= l @post.updated_at %></div>
-            <!-- Post categories-->
-            <a class="badge bg-secondary text-decoration-none link-light" href="#!">Web Design</a>
-            <a class="badge bg-secondary text-decoration-none link-light" href="#!">Freebies</a>
-        </header>
+        <!-- 投稿者へのリンク表示 -->
+        <%#= link_to @post.user.name, user_path(@post.user) %>
 
-        <!-- 投稿写真(Carousel) -->
-            <!-- 画像表示エリア -->
-
+        <!-- 画像表示エリア(Carousel) -->
         <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
           <div class="carousel-indicators">
-            <% if @post.images.attached? %>
+            <% if @post.images.attached? && @post.images.count >= 2 %>
               <% @post.images.count.times do |value| %>
                 <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="<%= value %>" class="<%= value == 0 ? "active" : "" %>" aria-current="<%= value == 0 ? "true" : "" %>" aria-label="Slide <%= value %>"></button>
               <% end %>
@@ -28,19 +30,21 @@
             <% if @post.images.attached? %>
               <% @post.images.each_with_index do |image, index| %>
                 <div class="carousel-item <%= index == 0 ? "active" : "" %>">
-                  <%= image_tag image, class: "d-block mx-auto", alt: "...", height: 400 %>
+                  <%= image_tag image.variant(resize: "600"), class: "d-block mx-auto", alt: "...", height: 400 %>
                 </div>
               <% end %>
             <% end %>
           </div>
-          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-          </button>
-          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-          </button>
+          <% if @post.images.count >= 2 %>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          <% end %>
         </div>
 
         <!-- 投稿本文 -->
@@ -123,44 +127,65 @@
     </div>
   </div>
 
-  <!-- Side widgets-->
+  <!-- Side ウィジェット -->
   <div class="col-lg-4">
-      <!-- Search widget-->
-      <div class="card mb-4">
-          <div class="card-header">Search</div>
-          <div class="card-body">
-              <div class="input-group">
-                  <input class="form-control" type="text" placeholder="Enter search term..." aria-label="Enter search term..." aria-describedby="button-search" />
-                  <button class="btn btn-primary" id="button-search" type="button">Go!</button>
-              </div>
-          </div>
+    <!-- カテゴリー -->
+    <div class="card mb-4">
+      <div class="card-header">カテゴリー</div>
+      <div class="card-body">
+        <table class="table">
+          <tbody>
+            <tr>
+              <th scope="row">国名：</th>
+              <td><span class="badge bg-info text-dark">ニュージーランド</span></td>
+            </tr>
+            <tr>
+              <th scope="row">エリア：</th>
+              <td><span class="badge bg-info text-dark">オークランド</span></td>
+            </tr>
+            <tr>
+              <th scope="row">職種：</th>
+              <td><span class="badge bg-warning text-dark">ファームジョブ</span></td>
+            </tr>
+            <tr>
+              <th scope="row">雇用形態：</th>
+              <td><span class="badge bg-warning text-dark">パートタイム</span></td>
+            </tr>
+            <tr>
+              <th scope="row">英語力：</th>
+              <td><span class="badge bg-primary">初級(あいさつ程度)</span></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-      <!-- Categories widget-->
-      <div class="card mb-4">
-          <div class="card-header">Categories</div>
-          <div class="card-body">
-              <div class="row">
-                  <div class="col-sm-6">
-                      <ul class="list-unstyled mb-0">
-                          <li><a href="#!">Web Design</a></li>
-                          <li><a href="#!">HTML</a></li>
-                          <li><a href="#!">Freebies</a></li>
-                      </ul>
-                  </div>
-                  <div class="col-sm-6">
-                      <ul class="list-unstyled mb-0">
-                          <li><a href="#!">JavaScript</a></li>
-                          <li><a href="#!">CSS</a></li>
-                          <li><a href="#!">Tutorials</a></li>
-                      </ul>
-                  </div>
-              </div>
-          </div>
+    </div>
+    <!-- カテゴリー(予備) -->
+    <div class="card mb-4">
+      <div class="card-header">Categories</div>
+      <div class="card-body">
+        <ul class="list-unstyled mb-0">
+          <li><b>国名：</b><span class="badge bg-info text-dark">ニュージーランド</span></li>
+          <li>エリア：<a href="#!">オークランド</a></li>
+          <li>職種：<a href="#!">ファームジョブ</a></li>
+          <li>雇用形態：<a href="#!">パートタイム</a></li>
+          <li>英語力：<a href="#!">初級(あいさつ程度)</a></li>
+        </ul>
       </div>
-      <!-- Side widget-->
-      <div class="card mb-4">
-          <div class="card-header">Side Widget</div>
-          <div class="card-body">You can put anything you want inside of these side widgets. They are easy to use, and feature the Bootstrap 5 card component!</div>
+    </div>
+    <!-- Search widget-->
+    <div class="card mb-4">
+      <div class="card-header">Search</div>
+      <div class="card-body">
+        <div class="input-group">
+          <input class="form-control" type="text" placeholder="Enter search term..." aria-label="Enter search term..." aria-describedby="button-search" />
+          <button class="btn btn-primary" id="button-search" type="button">Go!</button>
+        </div>
       </div>
+    </div>
+    <!-- Side widget-->
+    <div class="card mb-4">
+      <div class="card-header">Side Widget</div>
+      <div class="card-body">You can put anything you want inside of these side widgets. They are easy to use, and feature the Bootstrap 5 card component!</div>
+    </div>
   </div>
 </div>

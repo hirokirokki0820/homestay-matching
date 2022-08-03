@@ -1,14 +1,15 @@
-<!-- Page header with logo and tagline-->
+<!-- Page header with logo and tagline -->
 <header class="py-5 bg-light border-bottom mb-4">
-    <div class="container">
-        <div class="text-center my-5">
-            <h1 class="fw-bolder">Welcome to Blog Home!</h1>
-            <p class="lead mb-0">A Bootstrap 5 starter layout for your next blog homepage</p>
-        </div>
+  <div class="container">
+    <div class="text-center my-5">
+      <h1 class="fw-bolder">Working Holiday Job Sharering</h1>
+      <p class="lead mb-0 fs-6">ワーホリ同士で仕事を紹介し合うためのコミュニティサイトです。</p>
+      <p class="lead mb-0 fs-6">仕事を探している、または紹介したいワーホリさんはぜひご活用ください。</p>
     </div>
+  </div>
 </header>
-<!-- Page content-->
 
+<!-- Page content-->
 <div class="row">
   <!-- Blog entries-->
   <div class="col-lg-8">
@@ -19,7 +20,13 @@
             <!-- Blog post-->
             <div class="card mb-4">
               <%= link_to post do %>
-                <img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." />
+                <% if post.images.attached? %>
+                  <div class="card-img-top bg-black ">
+                    <%= image_tag post.images.first, class: "d-block mx-auto w-100", alt: "..." %>
+                  </div>
+                <% else %>
+                  <img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." />
+                <% end %>
               <% end %>
               <div class="card-body">
                   <div class="small text-muted"><%= l post.created_at %></div>

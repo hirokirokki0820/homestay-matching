@@ -31,6 +31,12 @@ class PostsController < ApplicationController
 
   def update
     set_images
+    if params[:post][:image_ids]
+      params[:post][:image_ids].each do |image_id|
+        image = @post.images.find(image_id)
+        image.purge
+      end
+    end
     if @post.update(post_params)
       flash[:notice] = "投稿を更新しました"
       redirect_to @post

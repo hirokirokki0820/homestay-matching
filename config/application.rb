@@ -24,5 +24,6 @@ module HomestayMatching
     config.action_view.field_error_proc = Proc.new { |html_tag, instance| html_tag }
     #ActiveStorage上書きしない
     config.active_storage.replace_on_assign_to_many = false
+    config.active_storage.variant_processor = :mini_magick
   end
 end

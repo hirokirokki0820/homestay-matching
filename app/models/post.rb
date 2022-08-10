@@ -12,6 +12,8 @@ class Post < ApplicationRecord
                     message: "有効なフォーマットではありません" },
                     size: { less_than: 5.megabytes, message: " 5MBを超える画像はアップロードできません" }
 
+  # validate :images_limit #カスタムメソッドなので"validate"
+
   private
     # ランダムな POST-ID を返す
     def set_post_id
@@ -19,6 +21,14 @@ class Post < ApplicationRecord
         self.id = SecureRandom.base58
       end
     end
+
+    # 画像の投稿枚数の制限(5枚以内)
+    # def images_limit
+    #   if self.images.count > 5
+    #     images.purge
+    #     self.errors.add(:images, "は5枚以内にしてください")
+    #   end
+    # end
 
     # 表示用のリサイズ済み画像を返す
     # def display_images

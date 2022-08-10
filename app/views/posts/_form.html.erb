@@ -39,31 +39,38 @@
       <%= render 'layouts/error_messages',class: "invalid-feedback", obj: @post, key: :address %>
     </div>
 
+    <%#----- 画像の添付 ------%>
     <div class="mt-3 mb-5 <%= @post.errors.include?(:images) ? "validation_errors" : "" %>">
-      <%#----- 画像の添付 ------%>
       <%= f.label :images, '画像(5MBまで、最大アップロード枚数5枚)', class: "form-label fw-bold" %><br>
-      <%= f.file_field :images, multiple: true, onchange: "previewImage(this);", accept: "image/jpeg,image/gif,image/png", class: "mb-3" %>
-      <%= render 'layouts/error_messages',class: "invalid-feedback", obj: @post, key: :images %>
-      <%#----- 現在登録されている画像を表示(チェックしたものを削除) ------%>
-      <div id="post_images" >
-        <img id="preview" width="100">
-      </div>
+      <%= f.file_field :images, multiple: true, onchange: "previewImage(this);", accept: "image/jpeg,image/gif,image/png", class: "mb-3", id: "images_upload" %><br>
 
+      <%#----- 選択した画像をプレビュー表示 ------%>
+      <span id="preview" class="images-field" alt="画像のプレビュー"></span>
+      <label class="images-upload-label text-center" for="images_upload">
+        <div>
+          <span style="display:inline-block; padding-top: 10px">画像</span><br>
+          <i class="bi bi-camera-fill fs-1"></i>
+        </div>
+      </label>
+      <%= render 'layouts/error_messages',class: "invalid-feedback", obj: @post, key: :images %>
+
+      <%#----- 選択した画像をプレビュー表示 ------%>
+      <div id="preview" alt="画像のプレビュー"></div>
+
+      <%#----- 現在登録されている画像を表示(チェックしたものを削除) ------%>
       <% if @post.images.present? %><br>
         <span>⇒現在登録されている画像</span>
         <p class="text-danger font09">※削除する場合は画像にチェックしてから更新してください</p>
         <% @post.images.each_with_index do |image, index| %>
-          <br>
           <div class="form-check">
             <%= f.check_box :image_ids, {multiple: true, class: "form-check-input", id: "post-image-check-#{index}"}, image.id, false %>
             <label class="form-check-label" for="post-image-check-<%= index %>">
-              <%= image_tag image, width: 300, class: "mb-2" %>
+              <%= image_tag image.variant(resize: "100x100"), class: "mb-2" %>
             </label>
           </div>
         <% end %>
       <% end %>
     </div>
-
 
     <%#----- 送信(更新)ボタン ------%>
     <%= f.submit (@post.new_record? ? "投稿する" : "更新する"), class: "btn btn-primary mb-4" %>
@@ -75,35 +82,49 @@
 <%= render "preview_image" %>
 <script>
   function previewImage(obj){
-    // var allPreview = document.getElementById('post_images');
-    // var newPreview = document.createElement("p");
-    // allPreview.querySelector("p").remove();
-    // newPreview.setAttribute("id","preview");
-    // allPreview.insertBefore(newPreview, allPreview.firstChild);
-    // document.getElementById('post_images').style.display = "";
-    for (i = 0; i < obj.files.length; i++) {
-        // var fileReader = new FileReader();
-        // fileReader.onload = (function (e) {
-        //     var img = new Image();
-        //     img.src = e.target.result;
-        //     document.getElementById('preview').appendChild(img);
+
+	for (i = 0; i < obj.files.length; i++) {
       var fileReader = new FileReader();
-      fileReader.onload = (function() {
-        document.getElementById('preview').src = fileReader.result;
+      fileReader.onload = (function (e) {
+        var img = new Image();
+        img.src = e.target.result;
+        img.width = 100;
+        document.getElementById('preview').appendChild(img);
       });
       fileReader.readAsDataURL(obj.files[i]);
+	}
+}
 
-      // var fileReader = new FileReader();
-      // fileReader.onload = (function() {
-      //   document.getElementById('preview').src = fileReader.result;
-    // });
-    // fileReader.readAsDataURL(obj.files[0]);
-    }
-  }
 
-      // var fileReader = new FileReader();
-    // fileReader.onload = (function() {
-    //   document.getElementById('preview').src = fileReader.result;
-    // });
-    // fileReader.readAsDataURL(obj.files[0]);
+  // function previewImage(obj){
+  //   var preview = document.querySelector('#preview');
+  //   var files   = document.querySelector('input[type=file]').files;
+
+  //   function readAndPreview(file) {
+
+  //     // `file.name` が拡張子の基準と一致していることを確認します。
+  //     if ( /\.(jpe?g|png|gif)$/i.test(file.name) ) {
+  //       var reader = new FileReader();
+
+  //       reader.addEventListener("load", function () {
+  //         var image = new Image();
+  //         image.height = 100;
+  //         image.title = file.name;
+  //         image.src = this.result;
+  //         image.id = "preview_image";
+  //         preview.appendChild( image );
+  //       }, false);
+
+  //       reader.readAsDataURL(file);
+  //     }
+
+  //   }
+  //   // let fileCount = 0;
+  //   if (files) {
+  //     // for (var i = 0; i < files.length; i++){
+  //     [].forEach.call(files, readAndPreview);
+  //     // }
+  //   }
+
+  // }
 </script>

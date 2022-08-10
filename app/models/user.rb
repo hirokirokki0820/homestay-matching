@@ -1,12 +1,17 @@
 class User < ApplicationRecord
   attr_accessor :remember_token, :remember_me, :activation_token, :reset_token
   has_many :posts, dependent: :destroy
+  has_one_attached :avatar
   before_create :set_id, :set_account_name, :create_activation_digest
   before_save :downcase_email
 
-  validates :account_type, presence: true, on: :create
+  # validates :account_type, presence: true, on: :create
 
   validates :name, presence: true, length: { maximum: 50 }
+
+  validates :avatar, content_type: { in: %w[image/jpeg image/gif image/png],
+                    message: "有効なフォーマットではありません" },
+                    size: { less_than: 5.megabytes, message: " 5MBを超える画像はアップロードできません" }
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, presence: true,

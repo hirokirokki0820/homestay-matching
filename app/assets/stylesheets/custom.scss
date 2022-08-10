@@ -87,7 +87,7 @@ body {
 
 //入力フォームの幅
 .form-column-width{
-    width: 55%;
+    width: 60%;
 }
 
 // 入力フォームのスタイリング（アイコン入り）
@@ -124,4 +124,28 @@ body {
 // Googleマップのサイズ
 #map{
   height: 400px;
+}
+
+// 画像添付時のプレビュー画像
+#preview_image{
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+// 画像添付の追加ボタン
+.images-upload-label{
+  width: 100px;
+  height: 100px;
+  margin-right: 5px;
+  margin-top: 5px;
+  background: gainsboro;
+  border: 2px dotted gray;
+  opacity: 0.8;
+  div{
+    // line-height: 100px;
+  }
+  &:hover{
+    opacity: 1;
+    cursor: pointer;
+  }
 }

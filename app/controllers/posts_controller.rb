@@ -71,10 +71,10 @@ class PostsController < ApplicationController
       end
     end
 
-    def require_host_account
-      if !(current_user.account_type == "host")
-        flash[:error] = "投稿はホストアカウント登録者のみ可能です。一般ユーザーは投稿できません。"
-        redirect_to root_path
-      end
-    end
+    # def require_host_account
+    #   if !(current_user.account_type == "host")
+    #     flash[:error] = "投稿はホストアカウント登録者のみ可能です。一般ユーザーは投稿できません。"
+    #     redirect_to root_path
+    #   end
+    # end
 end

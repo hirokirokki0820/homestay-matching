@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   before_action :require_same_user, only: [:edit, :update]
 
   def index
-    @users = User.all.order(created_at: :desc)
+    # @users = User.all.order(created_at: :desc)
   end
 
   def show
@@ -20,9 +20,7 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    # if params[:user][:account_type].blank?
-    #   @user.errors.add(:account_type, :blank)
-    #   render "new", status: :unprocessable_entity
+    set_avatar
     if @user.save
       @user.send_activation_email
       flash[:notice] = "アカウント認証メールを送信しました。メールが届きましたら、24時間以内に本文記載の有効化リンクをクリックしてアカウントを認証してください。"
@@ -33,9 +31,10 @@ class UsersController < ApplicationController
   end
 
   def update
-    # if params[:user][:password].blank?
-    #   @user.errors.add(:password, :blank)
-    #   render "edit", status: :unprocessable_entity
+    set_avatar if @user.avatar.blank?
+    if params[:user][:image_id]
+      @user.avatar.purge
+    end
     if @user.update(user_params)
       flash[:notice] = "プロフィールが変更されました"
       redirect_to @user
@@ -55,7 +54,11 @@ class UsersController < ApplicationController
     end
 
     def user_params
-      params.require(:user).permit(:account_type, :name, :gender, :email, :content, :password, :password_confirmation)
+      params.require(:user).permit(:account_type, :name, :gender, :avatar, :email, :content, :password, :password_confirmation)
+    end
+
+    def set_avatar
+      @user.avatar.attach(params[:user][:avatar])
     end
 
     def require_same_user

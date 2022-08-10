@@ -1,0 +1,118 @@
+<script>
+// document.addEventListener("turbo:load", ()=>{
+  var userForm = document.querySelector("#userForm");
+  var userNameField = document.querySelector('#userName');
+  var userEmailField = document.querySelector('#userEmail');
+  var userPasswordField = document.querySelector('#userPassword');
+  var userPasswordConfirmationField = document.querySelector('#userPasswordConfirmation');
+  var userSubmitBtn = document.querySelector('#userSubmit');
+
+  var userName = document.querySelector("#user_name");
+  var userEmail = document.querySelector("#user_email");
+  var userPassword = document.querySelector("#user_password");
+  var userPasswordConfirmation = document.querySelector("#user_password_confirmation");
+
+  var para = document.createElement('p');
+  var activeName;
+  var activeEmail;
+  var activePassword;
+  var activePasswordConfirmation;
+
+  //表示名のバリデーション
+  userName.addEventListener('input', ()=>{
+    if(userName.value === ""){
+      para.textContent = "表示名を入力してください";
+      para.style.color = "red";
+      userName.parentElement.style.border = "2px solid red";
+      activeName = false;
+    }else if(userName.value.length < 3){
+      para.textContent = "表示名は３文字以上で入力してください";
+      para.style.color = "red";
+      userName.parentElement.style.border = "2px solid red";
+      activeName = false;
+    }else if(userName.value.length > 50){
+      para.textContent = "表示名は50文字以内で入力してください";
+      para.style.color = "red";
+      userName.parentElement.style.border = "2px solid red";
+      userSubmitActive -= 1;
+      activeName = false;
+    }else{
+      userName.parentElement.style.border = "2px solid lightgreen";
+      para.textContent = "";
+      activeName = true;
+    }
+    userNameField.appendChild(para);
+  });
+
+  //メールアドレスのバリデーション
+  userEmail.addEventListener('input', ()=>{
+    var regex = /^[a-zA-Z0-9_+-]+(\.[a-zA-Z0-9_+-]+)*@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$/;
+    if(userEmail.value === ""){
+      para.textContent = "メールアドレスを入力してください";
+      para.style.color = "red";
+      userEmail.parentElement.style.border = "2px solid red";
+      activeEmail = false;
+    }else if(!regex.test(userEmail.value)){
+      para.textContent = "有効なアドレスを入力してください";
+      para.style.color = "red";
+      userEmail.parentElement.style.border = "2px solid red";
+      activeEmail = false;
+    }else{
+      userEmail.parentElement.style.border = "2px solid lightgreen";
+      para.textContent = "";
+      activeEmail = true;
+    }
+    userEmailField.appendChild(para);
+  });
+
+  //パスワードのバリデーション
+    userPassword.addEventListener('input', ()=>{
+    var regex = /^([a-zA-Z0-9]{6,})$/;
+    if(userPassword.value === ""){
+      para.textContent = "パスワードを入力してください";
+      para.style.color = "red";
+      userPassword.parentElement.style.border = "2px solid red";
+      activePassword = false;
+    }else if(!regex.test(userPassword.value)){
+      para.textContent = "6文字以上の半角英数字を入力してください";
+      para.style.color = "red";
+      userPassword.parentElement.style.border = "2px solid red";
+      activePassword = false;
+    }else{
+      userPassword.parentElement.style.border = "2px solid lightgreen";
+      para.textContent = "";
+      activePassword = true;
+    }
+    userPasswordField.appendChild(para);
+  });
+
+  //パスワード確認のバリデーション
+  userPasswordConfirmation.addEventListener('input', ()=>{
+    if(userPasswordConfirmation.value === ""){
+      para.textContent = "パスワード(確認用)を入力してください";
+      para.style.color = "red";
+      userPasswordConfirmation.parentElement.style.border = "2px solid red";
+      activePasswordConfirmation = false;
+    }else if(userPasswordConfirmation.value !== userPassword.value){
+      para.textContent = "入力したパスワードと一致しません";
+      para.style.color = "red";
+      userPasswordConfirmation.parentElement.style.border = "2px solid red";
+      activePasswordConfirmation = false;
+    }else{
+      userPasswordConfirmation.parentElement.style.border = "2px solid lightgreen";
+      para.textContent = "";
+      activePasswordConfirmation = true;
+    }
+    userPasswordConfirmationField.appendChild(para);
+  });
+
+  //Submitボタンのバリデーション（フォーム入力後に有効化）
+  userSubmitBtn.disabled = true;
+  userForm.addEventListener('input', ()=>{
+    if(activeName === true && activeEmail === true && activePassword === true &&  activePasswordConfirmation === true){
+      userSubmitBtn.disabled = false;
+    }else{
+      userSubmitBtn.disabled = true;
+    }
+  });
+</script>

@@ -95,33 +95,36 @@
         <%= render 'layouts/error_messages',class: "invalid-feedback", obj: @user, key: :email %>
       </div>
 
-      <%#----- パスワード ------%>
-      <div class="mb-3 <%= @user.errors.include?(:password) ? "validation_errors" : "" %>" id="userPassword">
-        <%= f.label :password, class: "form-label fw-bold"%>
-        <span class="text-danger">*</span>
-        <div class="input-group shadow-sm rounded">
-          <span class="input-group-text" id="basic-addon1">
-            <i class="bi bi-key-fill"></i>
-          </span>
-          <%= f.password_field :password, class: "form-control", placeholder: "パスワードを入力してください" %>
+      <%#----- パスワードフォームのグループ ------%>
+      <div id="userPasswordGroup">
+        <%#----- パスワード ------%>
+        <div class="mb-3 <%= @user.errors.include?(:password) ? "validation_errors" : "" %>" id="userPassword">
+          <%= f.label :password, class: "form-label fw-bold"%>
+          <span class="text-danger">*</span>
+          <div class="input-group shadow-sm rounded">
+            <span class="input-group-text" id="basic-addon1">
+              <i class="bi bi-key-fill"></i>
+            </span>
+            <%= f.password_field :password, class: "form-control", placeholder: "パスワードを入力してください" %>
+          </div>
+          <div id="emailHelp" class="form-text text-primary">※6文字以上の半角英数字を入力してください</div>
+          <%= render 'layouts/error_messages', obj: @user, key: :password %>
         </div>
-        <div id="emailHelp" class="form-text text-primary">※6文字以上の半角英数字を入力してください</div>
-        <%= render 'layouts/error_messages', obj: @user, key: :password %>
-      </div>
 
-      <%#----- パスワード(確認用) ------%>
-      <div class="mb-3 <%= @user.errors.include?(:password_confirmation) ? "validation_errors" : "" %>" id="userPasswordConfirmation">
-        <%= f.label :password_confirmation, class: "form-label fw-bold"%>
-        <span class="text-danger">*</span>
-        <div class="input-group shadow-sm rounded">
-          <span class="input-group-text" id="basic-addon1">
-            <i class="bi bi-key-fill"></i>
-          </span>
-          <%= f.password_field :password_confirmation, class: "form-control", placeholder: "パスワードをもう一度入力してください" %>
+        <%#----- パスワード(確認用) ------%>
+        <div class="mb-3 <%= @user.errors.include?(:password_confirmation) ? "validation_errors" : "" %>" id="userPasswordConfirmation">
+          <%= f.label :password_confirmation, class: "form-label fw-bold"%>
+          <span class="text-danger">*</span>
+          <div class="input-group shadow-sm rounded">
+            <span class="input-group-text" id="basic-addon1">
+              <i class="bi bi-key-fill"></i>
+            </span>
+            <%= f.password_field :password_confirmation, class: "form-control", placeholder: "パスワードをもう一度入力してください" %>
+          </div>
+          <%= render 'layouts/error_messages', obj: @user, key: :password_confirmation %>
         </div>
-        <%= render 'layouts/error_messages', obj: @user, key: :password_confirmation %>
-      </div>
-    <% end %>
+      <% end %>
+    </div>
 
     <%#----- 送信(更新)ボタン ------%>
     <%= f.submit class: "btn btn-primary mb-4", id: "userSubmit" %>
